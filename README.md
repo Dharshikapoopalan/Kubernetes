@@ -4,21 +4,34 @@ All about Kubernetes
 **Introduction to K8s**
 ------------------------------------------------
 What is Kubernetes?
+
 K8s Architecture
+
 Main K8s components 
+
 Minikube and kubectl-local setup
+
 Main kubectl commands-K8s CLI
-K8s YAML configuration file 
+
+K8s YAML configuration file
+
 Hands-on Demo
+
 ------------------------------------------------
 **Advanced Concepts**
 ------------------------------------------------
 K8s Namespaces-organize your components
+
 K8s Ingress
+
 Helm package manager
+
 Volumes-Persisting data in K8s 
+
 K8s StatefulSet-Deploying Stateful Apps
+
 K8s Services
+
 ------------------------------------------------
 
 **1. What is Kubernetes?**
@@ -50,7 +63,7 @@ K8s Services
     vii.  Deployment
     viii. Volumes
    
-   ** i. Pod, Node **
+   **i. Pod, Node**
 
      Pod: Smallest unit of K8s
    
@@ -65,9 +78,9 @@ K8s Services
        * Pods are ephemeral(They can destroy easily)
        * A new IP address will be assigned whenever a pod is re-created
 
-   Every time the pod is killed or crashes and is re-created, a new IP will be assigned, and to make internal communication, we need to update the new IP address in the code as well. To solve this problem, we have **Service**
+   Every time a pod is killed or crashes and is re-created, it gets a new IP, so for internal communication we need to update the IP address in the code as well. To solve this problem, we have **Service**
 
-   ** ii. Service **
+   **ii. Service**
    
     
 
