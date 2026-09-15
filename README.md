@@ -1,0 +1,73 @@
+# Kubernetes
+All about Kubernetes
+
+**Introduction to K8s**
+------------------------------------------------
+What is Kubernetes?
+K8s Architecture
+Main K8s components 
+Minikube and kubectl-local setup
+Main kubectl commands-K8s CLI
+K8s YAML configuration file 
+Hands-on Demo
+------------------------------------------------
+**Advanced Concepts**
+------------------------------------------------
+K8s Namespaces-organize your components
+K8s Ingress
+Helm package manager
+Volumes-Persisting data in K8s 
+K8s StatefulSet-Deploying Stateful Apps
+K8s Services
+------------------------------------------------
+
+**1. What is Kubernetes?**
+
+  **Official Definition:** An open-source container orchestration tool developed by Google that helps you manage containerized applications in different deployment environments(Physical, Virtual, Cloud, Hybrid).
+  
+**2. What problems does Kubernetes solve?**
+  
+  The need for a container orchestration tool:
+  
+    i.   Trend from Monolith to Microservices
+    ii.  Increased usage of containers
+    iii. Demand for a proper way of managing those hundreds of containers. 
+    
+**3. What features do orchestration tools offer?**
+
+    i.   High Availability or no downtime
+    ii.  Scalability or high performance
+    iii. Disaster recovery - backup & restore
+    
+4. Kubernetes Components
+
+    i.    Pod, Node
+    ii.   Service
+    iii.  Ingress
+    iv.   ConfigMap
+    v.    Secrets
+    vi.   StatefulSet
+    vii.  Deployment
+    viii. Volumes
+   
+   ** i. Pod, Node **
+
+     Pod: Smallest unit of K8s
+   
+       An abstraction over a container
+       Pod creates a running container environment to make the containers run on top of it.
+       We only interact with the Kubernetes layer.
+       Usually 1 application per pod; we can run many containers in a pod, but mainly it needs to be 1 pod.
+       Each pod gets its own IP address (internal IP address)
+   
+     Node: A simple server, physical or virtual machine(an EC2 instance can be considered a node)
+
+       * Pods are ephemeral(They can destroy easily)
+       * A new IP address will be assigned whenever a pod is re-created
+
+   Every time the pod is killed or crashes and is re-created, a new IP will be assigned, and to make internal communication, we need to update the new IP address in the code as well. To solve this problem, we have **Service**
+
+   ** ii. Service **
+   
+    
+
