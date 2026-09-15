@@ -94,10 +94,13 @@ K8s Services
  <img width="858" height="522" alt="image" src="https://github.com/user-attachments/assets/24469c35-5049-4d2a-a8c1-a1ef9d1474be" />
 
 
-    Service: Helps to initiate communication on top of the IP address. 
-
+     Service: Helps to initiate communication on top of the IP address. This means the service gets a fixed, permanent IP address; even if the pod is recreated, the service IP won't change.
+  
      * Permanent IP address
      * my-app will have its own service, and the DB will have its own service.
+     * Lifecycle of Pod and Service are NOT connected. 
+
+    -> With an internal service, we can communicate with the internal resources, but for external communication we need an external service. To solve this problem, we have **Ingress**
    
     
 
