@@ -71,8 +71,8 @@ K8s Services
     viii. Volumes
    
    **i. Pod, Node**
-   
-     <img width="876" height="525" alt="image" src="https://github.com/user-attachments/assets/b9331fee-7e92-4078-8b27-00ae314a9c96" />
+
+<img width="876" height="525" alt="image" src="https://github.com/user-attachments/assets/b9331fee-7e92-4078-8b27-00ae314a9c96" />
 
      Pod: Smallest unit of K8s
    
