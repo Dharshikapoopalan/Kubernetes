@@ -71,6 +71,8 @@ K8s Services
     viii. Volumes
    
    **i. Pod, Node**
+   
+     <img width="876" height="525" alt="image" src="https://github.com/user-attachments/assets/b9331fee-7e92-4078-8b27-00ae314a9c96" />
 
      Pod: Smallest unit of K8s
    
@@ -85,9 +87,14 @@ K8s Services
        * Pods are ephemeral(They can destroy easily)
        * A new IP address will be assigned whenever a pod is re-created
 
-   Every time a pod is killed or crashes and is re-created, it gets a new IP, so for internal communication we need to update the IP address in the code as well. To solve this problem, we have **Service**
+   -> Every time a pod is killed or crashes and is re-created, it gets a new IP, so for internal communication we need to update the IP address in the code as well. To solve this problem, we have **Service**
 
    **ii. Service**
+
+    Service: Helps to initiate communication on top of the IP address. 
+
+     * Permanent IP address
+     * my-app will have its own service, and the DB will have its own service.
    
     
 
