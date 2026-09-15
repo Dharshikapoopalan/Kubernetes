@@ -90,6 +90,9 @@ K8s Services
    -> Every time a pod is killed or crashes and is re-created, it gets a new IP, so for internal communication we need to update the IP address in the code as well. To solve this problem, we have **Service**
 
    **ii. Service**
+   
+ <img width="858" height="522" alt="image" src="https://github.com/user-attachments/assets/24469c35-5049-4d2a-a8c1-a1ef9d1474be" />
+
 
     Service: Helps to initiate communication on top of the IP address. 
 
