@@ -52,15 +52,22 @@ K8s Services
     ii.  Scalability or high performance
     iii. Disaster recovery - backup & restore
     
-4. Kubernetes Components
+**4. Kubernetes Components**
 
     i.    Pod, Node
+    
     ii.   Service
+    
     iii.  Ingress
+    
     iv.   ConfigMap
+    
     v.    Secrets
+    
     vi.   StatefulSet
+    
     vii.  Deployment
+    
     viii. Volumes
    
    **i. Pod, Node**
