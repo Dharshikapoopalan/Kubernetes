@@ -100,7 +100,13 @@ K8s Services
      * my-app will have its own service, and the DB will have its own service.
      * Lifecycle of Pod and Service are NOT connected. 
 
+   **iii. Ingress**
     -> With an internal service, we can communicate with the internal resources, but for external communication we need an external service. To solve this problem, we have **Ingress**
+
+    To access internal services, we have "**Service**," but for external services, or when internal services need to communicate with external services like public access (the application needs to be accessible through a browser, so we need an external service)
+
+    <img width="829" height="469" alt="image" src="https://github.com/user-attachments/assets/7f70b4e6-460d-4337-8b28-eef5cb976bef" />
+
    
     
 
