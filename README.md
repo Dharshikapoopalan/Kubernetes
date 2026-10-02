@@ -137,6 +137,36 @@ K8s Services
 
   <img width="436" height="193" alt="image" src="https://github.com/user-attachments/assets/678f8e4d-a2e8-4c93-9d7d-e1a2f70be9da" />
 
+  **v. Secret**
+
+    It is exactly like ConfigMap but is used to store secret data (Credentials). Not stored in plain text format. 
+    Stored in base64-encoded format.
+
+  <img width="819" height="502" alt="image" src="https://github.com/user-attachments/assets/27ed5bac-ea42-4fcb-be09-897c7fe78b62" />
+
+     We will be using these ConfigMaps and Secrets as environment variables or properties files.  
+
+  **vi. Volume**
+
+<img width="854" height="591" alt="image" src="https://github.com/user-attachments/assets/3b5baf71-579e-403e-ba7c-65515c9b0eaa" />
+
+   We have a database pod that uses or generates some data. 
+   If the container or pod restarts, the data will be gone. 
+   That's problematic and inconvenient. 
+   We want our database data to be persistent—reliable long-term.
+   To store data persistently, we use another Kubernetes component called volumes.
+
+   How does it work?
+   It attaches physical storage on a hard drive to your pod, and that storage could be either on the local machine on the same server node where the pod is running. 
+   Or it could be on remote storage, meaning outside of the K8s cluster. It can be your cloud storage or on-prem storage. 
+   Which is not part of the K8s cluster. 
+   So we have a reference to it for a remote volume. Now, if the pod restarts, the data is persistent. 
+
+  It's important to understand the distinction between the Kubernetes cluster and all of its components and the storage, regardless of whether it's local or remote storage. Think of storage as an external hard drive plugged into the Kubernetes cluster. The point is, the Kubernetes cluster explicitly doesn't manage any data persistence, which means that you, as a Kubernetes user or an administrator, are responsible for backing up the data, replicating and managing it, and making sure that it's kept on proper hardware, etc. Because it's not taking care of Kubernetes.
+
+
+  
+
 
    
     
