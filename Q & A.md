@@ -155,3 +155,113 @@ For example, the Deployment and ReplicaSet controllers manage different aspects 
 10. Which components maintain the desired state?
 
 Answer: Kubernetes controllers are primarily responsible for reconciliation. The API server and etcd provide the API and persisted state that those controllers use. The scheduler handles node selection for unscheduled Pods, and kubelets work to ensure assigned Pods run on their nodes.
+
+**********************************************************************************************************************
+
+**Level 3 — Kubernetes objects and workloads**
+
+1. What is a Pod?
+
+Answer: A Pod is the smallest deployable unit in Kubernetes. It contains one or more containers that share certain resources, including the Pod's network namespace and, when configured, shared volumes.
+Most application Pods contain one main application container, although multi-container Pods are useful for tightly coupled components.
+
+2. Why is a Pod the smallest deployable unit rather than a container?
+
+Answer: Kubernetes manages containers through Pods because a Pod provides a shared execution environment for one or more closely related containers. It allows them to share networking, storage, and a common lifecycle.
+A container is the execution unit, but the Pod is the Kubernetes workload unit.
+
+3. Can a Pod contain multiple containers? Why?
+
+Answer: Yes. Multiple containers can run inside one Pod when they need to work closely together and share resources.
+Examples include:
+- An application container and a log-processing sidecar.
+- An application container and a proxy sidecar.
+- An application container and a helper container that shares a volume.
+Unrelated applications should generally run in separate Pods.
+
+4. What is the difference between a Pod and a Deployment?
+
+Answer: A Pod runs containers. A Deployment manages a desired number of interchangeable Pod replicas through ReplicaSets and supports declarative updates and rollbacks.
+For a stateless web application, you would generally create a Deployment rather than manually manage individual Pods.
+
+5. Why do we use a ReplicaSet?
+
+Answer: A ReplicaSet ensures that the desired number of matching Pods exists.
+For example, if the specification requires three replicas and one Pod disappears, the ReplicaSet controller attempts to create a replacement. Deployments normally manage ReplicaSets for you.
+
+6. What happens if a Pod is deleted manually?
+
+Answer: The result depends on how the Pod was created.
+- If managed by a Deployment, its ReplicaSet will generally create a replacement.
+- If managed by a StatefulSet, the controller will work to restore the expected Pod identity.
+- If created directly without a managing controller, it will not normally be recreated automatically.
+
+7. What is the difference between a Deployment and a StatefulSet?
+
+Answer: A Deployment is generally used for stateless workloads where replicas are interchangeable. A StatefulSet is designed for applications that require stable Pod identities and may require stable storage associations and ordered operations.
+Examples include web front ends for Deployments and certain databases or distributed systems for StatefulSets.
+
+8. When would you use a DaemonSet?
+
+Answer: A DaemonSet ensures that a Pod runs on each eligible node, or on each node selected by its scheduling rules.
+Common uses include:
+- Node-level monitoring agents.
+- Log collection agents.
+- Certain networking or storage components.
+
+9. What is a Kubernetes Job, and how is it different from a Deployment?
+
+Answer: A Job manages Pods that perform a task until it completes successfully according to the Job's configuration.
+A Deployment manages continuously running application replicas.
+Examples: a database migration or batch-processing task can use a Job, while a web server typically uses a Deployment.
+
+10. What is the difference between declarative and imperative approaches?
+
+Answer: An imperative approach specifies an action to perform. A declarative approach specifies the desired outcome.
+Example of imperative configuration:
+kubectl scale deployment web --replicas=3
+
+
+Example of declarative configuration:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  replicas: 3
+
+
+The YAML is saved to a file and applied using kubectl apply -f web.yaml. Kubernetes controllers then work toward the specified state.
+
+11. What is a YAML manifest?
+
+Answer: A YAML manifest is a configuration document describing a Kubernetes object and its desired configuration.
+It commonly specifies the object's API version, kind, metadata, and specification. Kubernetes validates the request, and controllers act on accepted objects as needed.
+
+12. What are apiVersion, kind, metadata, and spec?
+
+Answer:
+- apiVersion: Identifies the API group and version used for the object.
+- kind: Identifies the resource type, such as Pod or Deployment.
+- metadata: Contains identifying information such as name, namespace, labels, and annotations.
+- spec: Describes the desired configuration of the resource.
+Some Kubernetes objects also have a status section describing their observed state.
+
+13. What is desired state, and how does Kubernetes maintain it?
+
+Answer: Desired state is what you want Kubernetes to achieve, such as running three replicas of an application.
+Controllers continuously compare the desired state with the observed state and attempt to reconcile any differences.
+This reconciliation process is one of the central principles of Kubernetes.
+
+14. What is the difference between a label and an annotation?
+
+Answer: Both are metadata attached to Kubernetes objects, but they serve different purposes.
+- Labels identify and group objects. Selectors can use labels to find matching objects.
+- Annotations store additional information, such as descriptions, build details, or tool-specific configuration.
+Annotations are not normally used as label selectors.
+
+15. What is a namespace, and why do we use it?
+
+Answer: A namespace logically separates resources within a Kubernetes cluster.
+For example, a company might use development, testing, and production namespaces to organize workloads.
+Namespaces also help scope names, access controls, quotas, and certain policies. They are not, by themselves, a strong security boundary.
