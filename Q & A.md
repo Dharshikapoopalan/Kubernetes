@@ -1,5 +1,7 @@
 Kubernetes fundamentals: Questions and answers
-Level 1 — Core concepts and architecture
+
+**Level 1 — Core concepts and architecture**
+
 1. What is Kubernetes, and what problem does it solve?
 
 Answer: Kubernetes is an open-source container orchestration platform. 
@@ -103,3 +105,53 @@ However, multiple control-plane nodes alone do not guarantee high availability. 
 
 Answer: The control plane detects that the node is no longer reporting health. The node may eventually be marked NotReady, and its Pods may be considered for replacement on other nodes.
 The timing depends on health-detection settings and workload configuration. Replacement Pods need suitable capacity and must satisfy scheduling constraints. Stateful workloads may also depend on storage and recovery behavior.
+
+********************************************************************************************************************
+
+**Level 2 — Understand the architecture**
+
+1. Why do components such as the scheduler communicate with the API server?
+
+Answer: The API server provides the central interface for reading and changing Kubernetes objects. Components use it to observe cluster state and record their decisions.
+For example, the scheduler watches for unscheduled Pods and records the selected node assignment through the API.
+
+2. Does the scheduler directly create containers?
+
+Answer: No. The scheduler selects a node for a Pod. The kubelet on that node works with the container runtime to start the containers specified in the Pod.
+
+3. Where is the desired state of the cluster stored?
+
+Answer: Kubernetes object state is persisted in etcd through the API server. The desired state might specify that a Deployment should maintain three replicas.
+Controllers compare this desired state with the observed state and attempt to reconcile differences.
+
+4. How does a worker node learn that a new Pod needs to run?
+
+Answer: After the scheduler assigns the Pod to a node, the kubelet on that node learns about the assigned Pod through the Kubernetes API, normally by watching for changes. It then works with the container runtime to start the required containers.
+
+5. Does the API server run containers itself?
+
+Answer: No. The API server accepts and processes API requests. The scheduler selects nodes, and the kubelet and container runtime on the selected nodes manage container execution.
+
+6. What happens if the scheduler is temporarily unavailable?
+
+Answer: Already-running Pods generally continue running because the scheduler isn't responsible for continuously running them. However, new Pods that require scheduling may remain Pending until scheduling resumes.
+Other control-plane functions can continue if their required components remain healthy.
+
+7. What happens if etcd becomes unavailable?
+
+Answer: Kubernetes can experience serious control-plane problems because it relies on etcd for persisted cluster state. API operations that require reading or writing that state may fail, and controllers may be unable to reconcile changes.
+Already-running containers do not necessarily stop immediately, but management and recovery capabilities can be impaired.
+
+8. Why is kubelet important to a worker node?
+
+Answer: The kubelet manages the Pods assigned to its node. It communicates with the container runtime, checks container and Pod health, and carries out configured lifecycle and probe actions.
+If kubelet fails, existing containers may continue running for a while, but Kubernetes loses normal management and health-reporting capabilities for that node.
+
+9. What is the difference between a controller and the controller manager?
+
+Answer: A controller is a reconciliation process responsible for a particular task. The controller manager runs several controllers.
+For example, the Deployment and ReplicaSet controllers manage different aspects of maintaining application replicas and updating workloads.
+
+10. Which components maintain the desired state?
+
+Answer: Kubernetes controllers are primarily responsible for reconciliation. The API server and etcd provide the API and persisted state that those controllers use. The scheduler handles node selection for unscheduled Pods, and kubelets work to ensure assigned Pods run on their nodes.
